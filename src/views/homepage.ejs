@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Pembayaran UKT</title>
+    <title>Data Pembayaran UKT</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -12,27 +12,41 @@
 </head>
 
 <body>
-<nav class="navbar fixed-top navbar-light bg-light">
-    <div class="container-fluid">
-        <form method="POST" action="/logout">
-            <button type="submit" class="btn btn-primary">Log out</button>
-        </form>
-    </div>
-</nav>
+    <nav class="navbar fixed-top navbar-light bg-light">
+        <div class="container-fluid">
+            <a href="/payment" class="btn btn-primary">Pembayaran</a>
+            <form method="POST" action="/logout">
+                <button type="submit" class="btn btn-primary">Log out</button>
+            </form>
+        </div>
+    </nav>
     <section class="vh-100 bg-image">
-        <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+        <div id="homepage" class="mask d-flex align-items-center h-100 gradient-custom-3">
             <div class="container h-100">
-                <div class="row d-flex justify-content-center align-items-center h-100">
-                    <div class="col-12 col-md-9 col-lg-7 col-xl-6">
-                        <div class="card" style="border-radius: 15px;">
-                            <div class="card-body p-5">
-                                <div class="mb-3">
-                                    <h2> Halo <%= user.fullname%>, <br> ini homepage</h2>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    <h1  class="mb-3">Data Pembayaran</h1>
+                    <table class="table table-bordered table-hover mb-3">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">NIM</th>
+                                <th scope="col">Nama</th>
+                                <th scope="col">Semester</th>
+                                <th scope="col">Nominal</th>
+                                <th scope="col">Bukti Pembayaran</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% payments.forEach(payment => { %>
+                                <tr>
+                                    <td><%= payment.nim %></td>
+                                    <td><%= payment.nama %></td>
+                                    <td><%= payment.semester %></td>
+                                    <td><%= payment.nominal %></td>
+                                    <td><%= payment.bukti_pembayaran %></td>
+                                </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                    <!-- Tambahkan elemen atau styling lainnya di bawah jika diperlukan -->
             </div>
         </div>
     </section>

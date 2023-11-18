@@ -25,7 +25,6 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 let initWebRoutes = (app) => {
-    router.get("/", loginController.checkLoggedIn, homePageController.handleHelloWorld);
     router.get("/login",loginController.checkLoggedOut, loginController.getPageLogin);
     router.post("/login", passport.authenticate("local", {
         successRedirect: "/payment",
@@ -39,7 +38,8 @@ let initWebRoutes = (app) => {
     router.post("/logout", loginController.postLogOut);
 
     router.get("/payment", loginController.checkLoggedIn, paymentController.getPagePayment);
-    router.post("/payment", upload.single('bukti_pembayaran'),auth.validatePayment,paymentController.processPayment);
+    router.post("/payment", upload.single('bukti_pembayaran'), auth.validatePayment, paymentController.processPayment);
+    router.get("/", homePageController.renderHomePage);
 
     return app.use("/", router);
 };

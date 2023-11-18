@@ -30,10 +30,11 @@ let processPayment = async (req, res) => {
             nominal: req.body.nominal,
             bukti_pembayaran: req.file.filename,
         };
+        
     
     try {
         await paymentService.processPayment(paymentData);
-        return res.redirect('/payment'); // Redirect ke halaman sukses setelah pembayaran berhasil
+        return res.redirect('/payment');
     } catch (err) {
         req.flash("errors", err);
         console.log("Failed to process");
