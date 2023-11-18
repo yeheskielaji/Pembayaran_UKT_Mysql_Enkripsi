@@ -25,27 +25,3 @@ module.exports = {
     aesEncrypt: aesEncrypt,
     aesDecrypt: aesDecrypt,
 };
-
-
-// const crypto = require('crypto');
-
-// const cryptoAlgorithm = 'aes-128-cbc';
-// const key = 'abcdefghijklmnop';
-// const iv = '1234567890123456';
-
-// let data = 'Halo semuanya. Ini adalah pesan yang ingin dikirimkan.'
-
-// const dataCrypto = crypto.createCipheriv(cryptoAlgorithm, key, iv);
-// let dataCipher = dataCrypto.update(data, 'utf8', 'hex');
-// dataCipher += dataCrypto.final('hex');
-
-// console.log(dataCipher);
-
-// //---------------
-// console.log('---decrypted---');
-
-// const dataDecipher = crypto.createDecipheriv(cryptoAlgorithm, key, iv);
-// let decryptedData = dataDecipher.update(dataCipher, 'hex', 'utf8');
-// decryptedData += dataDecipher.final('utf8');
-
-// console.log(decryptedData);
