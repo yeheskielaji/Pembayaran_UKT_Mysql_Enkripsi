@@ -17,7 +17,6 @@ async function processDecoding(req, res) {
 
         const imagePath = `src/images/${req.file.filename}`;
         const decodedText = await decodeService.extractHiddenDataFromImage(imagePath);
-        console.log(decodedText);
 
         return res.render('decode.ejs', { decodedText });
     } catch (error) {
