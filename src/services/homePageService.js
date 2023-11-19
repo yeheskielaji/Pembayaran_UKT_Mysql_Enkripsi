@@ -23,6 +23,7 @@ const getPayments = async () => {
             semester: vigenereDecrypt(aesDecrypt(row.semester, aesKey), vigenKey),
             nominal: vigenereDecrypt(aesDecrypt(row.nominal, aesKey), vigenKey),
             bukti_pembayaran: row.bukti_pembayaran,
+            waktu: row.created_at,
         }));
 
         return decryptedRows;

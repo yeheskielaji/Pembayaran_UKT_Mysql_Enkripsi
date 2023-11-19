@@ -1,25 +1,10 @@
 import DBConnection from './../configs/DBConnection';
 import { vigenereEncrypt } from '../crypto/vigenere';
 import { aesEncrypt } from '../crypto/aes';
-const Jimp = require('jimp');
-const path = require('path');
-const fs = require('fs');
-
 const crypto = require('crypto');
 
 const vigenKey = 'kriptoasik'; //key untuk vigenere
 const aesKey = 'abcdefghijklmnop'; //key untuk aes
-
-//fungsi enkrip gambar
-const encryptImage = async (imagePath) => {
-    const image = await Jimp.read(imagePath);
-    image.invert(); 
-
-    const encryptedImagePath = path.join(__dirname, '..', 'images', 'encrypted-' + path.basename(imagePath));
-    await image.writeAsync(encryptedImagePath);
-
-    return encryptedImagePath;
-};
 
 let processPayment = (paymentData) => {
     return new Promise(async (resolve, reject) => {
@@ -29,7 +14,6 @@ let processPayment = (paymentData) => {
                 console.log("Processing Payment Data...");
                 reject(`Nim ${paymentData.nim} telah melakukan pembayaran pada semester ${paymentData.semester}`);
             } else {
-                
                 // Mengenkripsi data dengan Vigenère Cipher
                 const vigenereEncryptedPaymentData = {
                     nim: vigenereEncrypt(paymentData.nim, vigenKey),
@@ -44,10 +28,8 @@ let processPayment = (paymentData) => {
                     nama: aesEncrypt(vigenereEncryptedPaymentData.nama, aesKey).encryptedData,
                     semester: aesEncrypt(vigenereEncryptedPaymentData.semester, aesKey).encryptedData,
                     nominal: aesEncrypt(vigenereEncryptedPaymentData.nominal, aesKey).encryptedData,
-                    bukti_pembayaran: paymentData.bukti_pembayaran ? await encryptImage(paymentData.bukti_pembayaran) : null,
+                    bukti_pembayaran: (paymentData.bukti_pembayaran),
                 };
-
-                console.log(aesEncryptedPaymentData);
 
                 // Proses pembayaran dan simpan ke database
                 DBConnection.query(
@@ -104,5 +86,4 @@ let checkExistingPayment = (nim, semester) => {
 module.exports = {
     processPayment: processPayment,
 };
-
 

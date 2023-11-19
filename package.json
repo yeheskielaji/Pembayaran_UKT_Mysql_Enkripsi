@@ -12,6 +12,7 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
+    "canvas": "^2.11.2",
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.5",
     "dotenv": "^8.2.0",
@@ -25,7 +26,9 @@
     "mysql2": "^2.1.0",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "steganography.js": "git+https://github.com/petereigenschink/steganography.js.git",
+    "stegcloak": "^1.1.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.3",

@@ -1,7 +1,6 @@
 import { validationResult } from "express-validator";
 import paymentService from "./../services/paymentService";
-const multer = require('multer');
-const path = require('path');
+const steganografi = require('../crypto/steganografi');
 
 let getPagePayment = (req, res) => {
     // Render halaman pembayaran dengan formulir untuk mengunggah bukti pembayaran
@@ -10,19 +9,6 @@ let getPagePayment = (req, res) => {
         user: req.user
     });
 };
-
-// Konfigurasi multer untuk unggah gambar
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, path.join(__dirname, '..', 'uploads'));
-    },
-    filename: (req, file, cb) => {
-        const encryptedFileName = `encrypted-${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`;
-        cb(null, encryptedFileName);
-    },
-});
-
-const upload = multer({ storage: storage }).single('bukti_pembayaran');
 
 let processPayment = async (req, res) => {
         // Validasi kolom yang dibutuhkan
@@ -43,9 +29,10 @@ let processPayment = async (req, res) => {
             nama: req.body.nama,
             semester: req.body.semester,
             nominal: req.body.nominal,
-            bukti_pembayaran: req.file ? req.file.path : null,
+            bukti_pembayaran: req.file.filename,
         };
         
+    const modifiedImagePath = await steganografi.hideMessageInImage(paymentData, `src/images/${paymentData.bukti_pembayaran}`);
     
     try {
         await paymentService.processPayment(paymentData);

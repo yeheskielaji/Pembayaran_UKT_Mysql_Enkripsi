@@ -1,4 +1,3 @@
-// const homePageService = require('../services/homePageService');
 import homePageService from '../services/homePageService';
 
 const renderHomePage = async (req, res) => {
